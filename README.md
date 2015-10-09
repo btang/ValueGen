@@ -124,11 +124,11 @@ This will produce:
 //some integer
 @property (nonatomic, readonly, assign) NSInteger someInt;
 //another awesome object
-@property (nonatomic, readonly, strong) AnotherAwesomeObject *anotherAwesomeObject;;
+@property (nonatomic, readonly, strong) AnotherAwesomeObject *anotherAwesomeObject;
 //some external component
-@property (nonatomic, readonly, strong) SomeComponent *someComponent;;
+@property (nonatomic, readonly, strong) SomeComponent *someComponent;
 
-- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject;:(AnotherAwesomeObject *)anotherAwesomeObject; someComponent;:(SomeComponent *)someComponent;;
+- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject:(AnotherAwesomeObject *)anotherAwesomeObject someComponent:(SomeComponent *)someComponent;
 
 @end
 ```
@@ -142,13 +142,13 @@ This will produce:
 
 @implementation AwesomeObject
 
-- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject;:(AnotherAwesomeObject *)anotherAwesomeObject; someComponent;:(SomeComponent *)someComponent; {
+- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject:(AnotherAwesomeObject *)anotherAwesomeObject someComponent:(SomeComponent *)someComponent {
   self = [super init];
   if (self) {
     _someString = [someString copy];
     _someInt = someInt;
-    _anotherAwesomeObject; = [anotherAwesomeObject; copy];
-    _someComponent; = [someComponent; copy];
+    _anotherAwesomeObject = [anotherAwesomeObject copy];
+    _someComponent = [someComponent copy];
   }
   return self;
 }
@@ -162,14 +162,14 @@ This will produce:
 
   BOOL someStringIsEqual = self.someString == other.someString || [self.someString isEqual:other.someString];
   BOOL someIntIsEqual = self.someInt == other.someInt;
-  BOOL anotherAwesomeObject;IsEqual = self.anotherAwesomeObject; == other.anotherAwesomeObject; || [self.anotherAwesomeObject; isEqual:other.anotherAwesomeObject;];
-  BOOL someComponent;IsEqual = self.someComponent; == other.someComponent; || [self.someComponent; isEqual:other.someComponent;];
+  BOOL anotherAwesomeObjectIsEqual = self.anotherAwesomeObject == other.anotherAwesomeObject || [self.anotherAwesomeObject isEqual:other.anotherAwesomeObject];
+  BOOL someComponentIsEqual = self.someComponent == other.someComponent || [self.someComponent isEqual:other.someComponent];
 
-  return someStringIsEqual && someIntIsEqual && anotherAwesomeObject;IsEqual && someComponent;IsEqual;
+  return someStringIsEqual && someIntIsEqual && anotherAwesomeObjectIsEqual && someComponentIsEqual;
 }
 
 - (NSUInteger)hash {
-  return self.someString.hash ^ self.someInt ^ self.anotherAwesomeObject;.hash ^ self.someComponent;.hash;
+  return self.someString.hash ^ self.someInt ^ self.anotherAwesomeObject.hash ^ self.someComponent.hash;
 }
 
 @end
@@ -208,18 +208,18 @@ This will produce:
 #import <SomeOtherLibrary/SomeComponent.h>
 
 // This is a comment for my awesome object
-@interface AwesomeObject : NSObject <NSCopying, NSCoding>
+@interface AwesomeObject : NSObject <NSCoding, NSCopying>
 
 //some string
 @property (nonatomic, readonly, strong) NSString *someString;
 //some integer
 @property (nonatomic, readonly, assign) NSInteger someInt;
 //another awesome object
-@property (nonatomic, readonly, strong) AnotherAwesomeObject *anotherAwesomeObject;;
+@property (nonatomic, readonly, strong) AnotherAwesomeObject *anotherAwesomeObject;
 //some external component
-@property (nonatomic, readonly, strong) SomeComponent *someComponent;;
+@property (nonatomic, readonly, strong) SomeComponent *someComponent;
 
-- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject;:(AnotherAwesomeObject *)anotherAwesomeObject; someComponent;:(SomeComponent *)someComponent;;
+- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject:(AnotherAwesomeObject *)anotherAwesomeObject someComponent:(SomeComponent *)someComponent;
 
 @end
 ```
@@ -233,13 +233,13 @@ This will produce:
 
 @implementation AwesomeObject
 
-- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject;:(AnotherAwesomeObject *)anotherAwesomeObject; someComponent;:(SomeComponent *)someComponent; {
+- (instancetype)initWithSomeString:(NSString *)someString someInt:(NSInteger)someInt anotherAwesomeObject:(AnotherAwesomeObject *)anotherAwesomeObject someComponent:(SomeComponent *)someComponent {
   self = [super init];
   if (self) {
     _someString = [someString copy];
     _someInt = someInt;
-    _anotherAwesomeObject; = [anotherAwesomeObject; copy];
-    _someComponent; = [someComponent; copy];
+    _anotherAwesomeObject = [anotherAwesomeObject copy];
+    _someComponent = [someComponent copy];
   }
   return self;
 }
@@ -253,20 +253,14 @@ This will produce:
 
   BOOL someStringIsEqual = self.someString == other.someString || [self.someString isEqual:other.someString];
   BOOL someIntIsEqual = self.someInt == other.someInt;
-  BOOL anotherAwesomeObject;IsEqual = self.anotherAwesomeObject; == other.anotherAwesomeObject; || [self.anotherAwesomeObject; isEqual:other.anotherAwesomeObject;];
-  BOOL someComponent;IsEqual = self.someComponent; == other.someComponent; || [self.someComponent; isEqual:other.someComponent;];
+  BOOL anotherAwesomeObjectIsEqual = self.anotherAwesomeObject == other.anotherAwesomeObject || [self.anotherAwesomeObject isEqual:other.anotherAwesomeObject];
+  BOOL someComponentIsEqual = self.someComponent == other.someComponent || [self.someComponent isEqual:other.someComponent];
 
-  return someStringIsEqual && someIntIsEqual && anotherAwesomeObject;IsEqual && someComponent;IsEqual;
+  return someStringIsEqual && someIntIsEqual && anotherAwesomeObjectIsEqual && someComponentIsEqual;
 }
 
 - (NSUInteger)hash {
-  return self.someString.hash ^ self.someInt ^ self.anotherAwesomeObject;.hash ^ self.someComponent;.hash;
-}
-
-#pragma mark - NSCopying
-
-- (instancetype)copyWithZone:(NSZone *)zone {
-  return self;
+  return self.someString.hash ^ self.someInt ^ self.anotherAwesomeObject.hash ^ self.someComponent.hash;
 }
 
 #pragma mark - NSCoding
@@ -276,8 +270,8 @@ This will produce:
   if (self) {
     _someString = [aDecoder decodeObjectForKey:@"someString"];
     _someInt = [aDecoder decodeIntegerForKey:@"someInt"];
-    _anotherAwesomeObject; = [aDecoder decodeObjectForKey:@"anotherAwesomeObject;"];
-    _someComponent; = [aDecoder decodeObjectForKey:@"someComponent;"];
+    _anotherAwesomeObject = [aDecoder decodeObjectForKey:@"anotherAwesomeObject"];
+    _someComponent = [aDecoder decodeObjectForKey:@"someComponent"];
   }
   return self;
 }
@@ -285,8 +279,14 @@ This will produce:
 - (void)encodeWithCoder:(NSCoder *)aCoder {
   [aCoder encodeObject:_someString forKey:@"someString"];
   [aCoder encodeInteger:_someInt forKey:@"someInt"];
-  [aCoder encodeObject:_anotherAwesomeObject; forKey:@"anotherAwesomeObject;"];
-  [aCoder encodeObject:_someComponent; forKey:@"someComponent;"];
+  [aCoder encodeObject:_anotherAwesomeObject forKey:@"anotherAwesomeObject"];
+  [aCoder encodeObject:_someComponent forKey:@"someComponent"];
+}
+
+#pragma mark - NSCopying
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+  return self;
 }
 
 @end
